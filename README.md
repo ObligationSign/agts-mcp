@@ -2,7 +2,7 @@
 
 **Sovereign MCP Gateway — Governed Tool Invocation for Autonomous Agents**
 
-Model Context Protocol server that turns tool calls into cryptographically authorized, verifiable actions. 64 governed tools across 6 layers — hybrid Ed25519 + SLH-DSA signed and Merkle-anchored. Designed to support EU AI Act, SOC 2, ISO 27001, DORA, and NIS2 compliance.
+Model Context Protocol server that turns tool calls into cryptographically authorized, verifiable actions. 64 governed tools across 6 layers — hybrid Ed25519 + SLH-DSA signed and Merkle-anchored. Designed to support EU AI Act, GDPR, SOC 2, ISO 27001, DORA, NIS2, and FINRA compliance.
 
 ---
 
@@ -274,6 +274,17 @@ The gateway's architecture is designed to support compliance across multiple reg
 | **Art. 11 — Testing** | Every governance decision is independently verifiable via Merkle inclusion proofs; `verify_commitment` enables third-party audit at any time |
 | **Art. 15 — Third-party risk** | Sub-agent delegation enforces budget decay and depth limits; `chain_delegation` tracks recursive delegation lineage; `delegation_tree` reconstructs full provenance |
 
+#### GDPR
+
+| Requirement | AGTS Implementation |
+|---|---|
+| **Art. 5(1)(a) — Lawfulness, fairness, transparency** | Every agent action is pre-authorized through the five-gate firewall; governance decisions include HCE (Human-Compatible Explanation) for explainability |
+| **Art. 5(1)(e) — Storage limitation** | `memory_gc` garbage collects stale entries; `set_memory_ttl` enforces automatic expiration; `delete_file` creates cryptographic death leaves proving deletion |
+| **Art. 5(1)(f) — Integrity and confidentiality** | End-to-end encrypted mail and drive storage; hybrid post-quantum cryptography; append-only transparency log ensures integrity |
+| **Art. 17 — Right to erasure** | `memory_delete` removes specific memory paths; `delete_file` with death leaf provides verifiable proof of deletion |
+| **Art. 25 — Data protection by design** | Cryptographic identity via Claw Passport (no PII required); client-side encryption for stored files; key registry with revocation support |
+| **Art. 30 — Records of processing activities** | Merkle transparency log records every authorization, execution, and policy change with timestamps and cryptographic signatures |
+
 #### NIS2
 
 | Requirement | AGTS Implementation |
@@ -281,6 +292,16 @@ The gateway's architecture is designed to support compliance across multiple reg
 | **Art. 21 — Cybersecurity risk management** | Governance firewall, cryptographic signing, transparency log, and post-quantum key exchange form a defense-in-depth architecture |
 | **Art. 23 — Incident reporting** | Alert system with webhook subscriptions; equivocation detection; governance variance records provide forensic evidence chain |
 | **Art. 21(2)(d) — Supply chain security** | Sub-agent orchestration with budget controls and depth limits; delegation tree provides full provenance tracking across agent boundaries |
+
+#### FINRA
+
+| Requirement | AGTS Implementation |
+|---|---|
+| **Rule 3110 — Supervision** | Five-gate firewall enforces pre-execution supervision of every agent action; QUARANTINE/REFUSE decisions prevent unauthorized transactions |
+| **Rule 3120 — Supervisory control system** | Governance stats and gate analysis provide supervisory analytics; policy thresholds are configurable and themselves governed |
+| **Rule 4511 — Books and records** | Append-only Merkle transparency log with Ed25519 + SLH-DSA signed governance envelopes; every authorization and execution is permanently recorded |
+| **Rule 3310 — AML compliance** | `submit_governance` evaluates evidence including value, recipient, and intent before any financial action is authorized; variance detection flags deviations |
+| **Rule 2210 — Communications** | `send_sovereign_mail` with governance pre-authorization ensures all agent communications are reviewed and logged before transmission |
 
 The closest comparable in the market is not another MCP server — it is what a regulated enterprise would build internally to control what their AI agents can do in production.
 
@@ -306,5 +327,6 @@ The normative AGTS Clearinghouse specification is available at:
 ## License
 
 This document is published for reference and integration purposes. The MCP server is operated by ObligationSign. See the [AGTS Clearinghouse Specification](https://github.com/obligationsign/agts-clearinghouse) for protocol terms.
+
 
 
