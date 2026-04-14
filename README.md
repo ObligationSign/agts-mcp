@@ -17,6 +17,12 @@ https://agts-mcp.obligationsign.com/mcp
 | **Streamable HTTP (primary)** | `https://agts-mcp.obligationsign.com/mcp` | Active |
 | SSE (deprecated) | `https://agts-mcp.obligationsign.com/mcp/sse` | Deprecated |
 
+## Authentication
+
+The gateway requires a Bearer token issued through the ObligationSign platform. All requests must include an `Authorization` header.
+
+To obtain a token, register at [obligationsign.com/start/](https://obligationsign.com/start/).
+
 ## Quick Start
 
 ### Claude Desktop / Cursor / Windsurf
@@ -27,7 +33,10 @@ Add to your MCP configuration:
 {
   "mcpServers": {
     "agts": {
-      "url": "https://agts-mcp.obligationsign.com/mcp"
+      "url": "https://agts-mcp.obligationsign.com/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_TOKEN"
+      }
     }
   }
 }
@@ -38,6 +47,7 @@ Add to your MCP configuration:
 ```bash
 curl -X POST https://agts-mcp.obligationsign.com/mcp \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
   -d '{
     "jsonrpc": "2.0",
     "id": 1,
@@ -219,6 +229,7 @@ The normative AGTS Clearinghouse specification is available at:
 - **Landing Page**: [obligationsign.com/mcp/](https://obligationsign.com/mcp/)
 - **Platform**: [obligationsign.com](https://obligationsign.com)
 - **Specification**: [github.com/obligationsign/agts-clearinghouse](https://github.com/obligationsign/agts-clearinghouse)
+- **MCP Registry**: [registry.modelcontextprotocol.io](https://registry.modelcontextprotocol.io/?search=agts)
 
 ---
 
