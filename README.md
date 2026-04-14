@@ -2,7 +2,7 @@
 
 **Sovereign MCP Gateway — Governed Tool Invocation for Autonomous Agents**
 
-Model Context Protocol server that turns tool calls into cryptographically authorized, verifiable actions. 64 governed tools across 6 layers — hybrid Ed25519 + SLH-DSA signed and Merkle-anchored. Designed to support EU AI Act compliance.
+Model Context Protocol server that turns tool calls into cryptographically authorized, verifiable actions. 64 governed tools across 6 layers — hybrid Ed25519 + SLH-DSA signed and Merkle-anchored. Designed to support EU AI Act, SOC 2, ISO 27001, DORA, and NIS2 compliance.
 
 ---
 
@@ -230,16 +230,57 @@ This server operates at a different level. It is not a wrapper around an externa
 
 The result is that every tool call produces independently verifiable cryptographic evidence of what was authorized, what was executed, and whether the outcome matched the authorization — the kind of audit trail required in regulated industries (financial services, healthcare, legal, critical infrastructure).
 
-### EU AI Act Readiness
+### Regulatory Readiness
 
-The gateway's architecture directly addresses the obligations the EU AI Act places on high-risk AI systems:
+The gateway's architecture is designed to support compliance across multiple regulatory frameworks. The table below maps specific requirements to the AGTS features that address them.
 
-| EU AI Act Requirement | AGTS Implementation |
+#### EU AI Act
+
+| Requirement | AGTS Implementation |
 |---|---|
 | **Art. 9 — Risk management** | Five-gate firewall evaluates every action before execution; QUARANTINE decisions enable human intervention |
 | **Art. 12 — Record-keeping** | Append-only Merkle transparency log with signed governance envelopes; automatic recording of every authorization and execution event |
 | **Art. 13 — Transparency** | Every commitment is independently verifiable with cryptographic inclusion proofs; governance decisions are explainable via the HCE (Human-Compatible Explanation) gate |
 | **Art. 14 — Human oversight** | Gate thresholds are configurable; QUARANTINE/REFUSE decisions halt execution; policy updates are themselves governed and logged |
+
+#### SOC 2
+
+| Trust Principle | AGTS Implementation |
+|---|---|
+| **Security** | Hybrid Ed25519 + SLH-DSA signing; post-quantum key exchange (ML-KEM-512); Cloudflare Access authentication with email binding; per-tool rate limiting |
+| **Availability** | Multi-worker mesh architecture with independent health monitoring; gossip protocol detects node failures; `system_health` probes all upstream services |
+| **Processing Integrity** | Five-gate firewall validates every action before execution; execution outcomes are traced back to authorization; variance detection on deviated outcomes |
+| **Confidentiality** | End-to-end encrypted mail (ECDH P-384 key wrapping); client-side encrypted drive storage; attested VPN tunnels for network isolation |
+| **Privacy** | No plaintext storage of message content; cryptographic identity via Claw Passport; key registry with revocation support |
+
+#### ISO 27001
+
+| Control Area | AGTS Implementation |
+|---|---|
+| **A.8 — Asset management** | Every file, message, and identity key is tracked with cryptographic hashes; death leaves record asset deletion |
+| **A.9 — Access control** | Bearer token authentication; Cloudflare Access email binding; per-agent identity via Claw Passport with trust scoring |
+| **A.10 — Cryptography** | Hybrid classical + post-quantum signing (Ed25519 + SLH-DSA); PQC key exchange (ML-KEM-512); ECDH P-384 for mail encryption |
+| **A.12 — Operations security** | Immutable transparency log; independent monitor workers verify log consistency via gossip protocol; equivocation detection |
+| **A.16 — Incident management** | Alert subscription system; equivocation checks detect conflicting Signed Tree Heads; governance variance records track deviations |
+| **A.18 — Compliance** | All governance decisions, policy changes, and execution outcomes are cryptographically anchored; audit trail is independently verifiable |
+
+#### DORA (Digital Operational Resilience Act)
+
+| Requirement | AGTS Implementation |
+|---|---|
+| **Art. 6 — ICT risk management** | Five-gate firewall performs pre-execution risk evaluation; gate thresholds are configurable per policy; governance stats provide per-gate pass/fail analytics |
+| **Art. 9 — Detection** | Monitor workers continuously probe service health; gossip protocol detects inconsistencies; alert subscriptions enable real-time incident notification |
+| **Art. 10 — Response and recovery** | QUARANTINE decisions halt risky operations; `manage_spending` can freeze agent budgets; execution tracing links failures to their authorization |
+| **Art. 11 — Testing** | Every governance decision is independently verifiable via Merkle inclusion proofs; `verify_commitment` enables third-party audit at any time |
+| **Art. 15 — Third-party risk** | Sub-agent delegation enforces budget decay and depth limits; `chain_delegation` tracks recursive delegation lineage; `delegation_tree` reconstructs full provenance |
+
+#### NIS2
+
+| Requirement | AGTS Implementation |
+|---|---|
+| **Art. 21 — Cybersecurity risk management** | Governance firewall, cryptographic signing, transparency log, and post-quantum key exchange form a defense-in-depth architecture |
+| **Art. 23 — Incident reporting** | Alert system with webhook subscriptions; equivocation detection; governance variance records provide forensic evidence chain |
+| **Art. 21(2)(d) — Supply chain security** | Sub-agent orchestration with budget controls and depth limits; delegation tree provides full provenance tracking across agent boundaries |
 
 The closest comparable in the market is not another MCP server — it is what a regulated enterprise would build internally to control what their AI agents can do in production.
 
@@ -265,4 +306,5 @@ The normative AGTS Clearinghouse specification is available at:
 ## License
 
 This document is published for reference and integration purposes. The MCP server is operated by ObligationSign. See the [AGTS Clearinghouse Specification](https://github.com/obligationsign/agts-clearinghouse) for protocol terms.
+
 
