@@ -216,6 +216,24 @@ Agent ─── MCP Gateway ─── Five-Gate Firewall ─── Transparency 
 
 ---
 
+## How This Server Differs
+
+Most MCP servers in the ecosystem (~83%) are thin API wrappers — a single connector exposed as one or two tools, running locally via stdio, with no authentication or validation. The production-tier servers from vendors like GitHub, Slack, and AWS (~2%) are well-built but architecturally simple: they translate `tools/call` into API requests for their own service.
+
+This server operates at a different level. It is not a wrapper around an external API — it implements a full governance protocol where:
+
+- Every action must pass through **five evaluation gates** before execution is authorized
+- Admitted actions are **cryptographically signed** (hybrid Ed25519 + SLH-DSA) and **Merkle-anchored** in an append-only transparency log
+- Execution outcomes are **traced back** to their authorization, creating a closed governance loop
+- Independent monitors verify log consistency through a **gossip protocol**, detecting equivocation or tampering
+- Identity is handled through **post-quantum cryptography** (ML-DSA-44, ML-KEM-512) for forward security
+
+The result is that every tool call produces independently verifiable cryptographic evidence of what was authorized, what was executed, and whether the outcome matched the authorization — the kind of audit trail required in regulated industries (financial services, healthcare, legal, critical infrastructure).
+
+The closest comparable in the market is not another MCP server — it is what a regulated enterprise would build internally to control what their AI agents can do in production.
+
+---
+
 ## Specification
 
 The normative AGTS Clearinghouse specification is available at:
