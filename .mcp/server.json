@@ -2,8 +2,8 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.ObligationSign/agts-mcp",
   "title": "AGTS MCP Server",
-  "description": "Sovereign MCP Gateway — 64 governed tools with five-gate firewall and Merkle transparency log.",
-  "version": "1.0.0",
+  "description": "Sovereign MCP Gateway — 64 governed tools with Merkle transparency log. EU AI Act and SOC 2 ready.",
+  "version": "1.0.1",
   "websiteUrl": "https://obligationsign.com/mcp/",
   "repository": {
     "url": "https://github.com/ObligationSign/agts-mcp",
