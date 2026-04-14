@@ -2,7 +2,7 @@
 
 **Sovereign MCP Gateway — Governed Tool Invocation for Autonomous Agents**
 
-Model Context Protocol server that turns tool calls into cryptographically authorized, verifiable actions. 64 governed tools across 6 layers — hybrid Ed25519 + SLH-DSA signed and Merkle-anchored.
+Model Context Protocol server that turns tool calls into cryptographically authorized, verifiable actions. 64 governed tools across 6 layers — hybrid Ed25519 + SLH-DSA signed and Merkle-anchored. Designed to support EU AI Act compliance.
 
 ---
 
@@ -230,6 +230,17 @@ This server operates at a different level. It is not a wrapper around an externa
 
 The result is that every tool call produces independently verifiable cryptographic evidence of what was authorized, what was executed, and whether the outcome matched the authorization — the kind of audit trail required in regulated industries (financial services, healthcare, legal, critical infrastructure).
 
+### EU AI Act Readiness
+
+The gateway's architecture directly addresses the obligations the EU AI Act places on high-risk AI systems:
+
+| EU AI Act Requirement | AGTS Implementation |
+|---|---|
+| **Art. 9 — Risk management** | Five-gate firewall evaluates every action before execution; QUARANTINE decisions enable human intervention |
+| **Art. 12 — Record-keeping** | Append-only Merkle transparency log with signed governance envelopes; automatic recording of every authorization and execution event |
+| **Art. 13 — Transparency** | Every commitment is independently verifiable with cryptographic inclusion proofs; governance decisions are explainable via the HCE (Human-Compatible Explanation) gate |
+| **Art. 14 — Human oversight** | Gate thresholds are configurable; QUARANTINE/REFUSE decisions halt execution; policy updates are themselves governed and logged |
+
 The closest comparable in the market is not another MCP server — it is what a regulated enterprise would build internally to control what their AI agents can do in production.
 
 ---
@@ -254,3 +265,4 @@ The normative AGTS Clearinghouse specification is available at:
 ## License
 
 This document is published for reference and integration purposes. The MCP server is operated by ObligationSign. See the [AGTS Clearinghouse Specification](https://github.com/obligationsign/agts-clearinghouse) for protocol terms.
+
