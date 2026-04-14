@@ -1,8 +1,8 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.obligationsign/agts-mcp",
+  "name": "io.github.ObligationSign/agts-mcp",
   "title": "AGTS MCP Server",
-  "description": "Sovereign MCP Gateway — governed tool invocation for autonomous agents. 64 tools across 6 layers with five-gate firewall pre-authorization, hybrid Ed25519+SLH-DSA signing, and Merkle-anchored transparency log.",
+  "description": "Sovereign MCP Gateway — 64 governed tools with five-gate firewall and Merkle transparency log.",
   "version": "1.0.0",
   "websiteUrl": "https://obligationsign.com/mcp/",
   "repository": {
