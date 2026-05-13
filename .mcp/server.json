@@ -1,9 +1,9 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.ObligationSign/agts-mcp",
+  "name": "com.obligationsign.mcp/agts-mcp",
   "title": "AGTS MCP Server",
-  "description": "Sovereign MCP Gateway — 64 governed tools with Merkle transparency log. EU AI Act and SOC 2 ready.",
-  "version": "1.0.1",
+  "description": "Sovereign MCP Gateway \u2014 64 governed tools with Merkle transparency log. EU AI Act ready.",
+  "version": "1.0.2",
   "websiteUrl": "https://obligationsign.com/mcp/",
   "repository": {
     "url": "https://github.com/ObligationSign/agts-mcp",
@@ -12,11 +12,11 @@
   "remotes": [
     {
       "type": "streamable-http",
-      "url": "https://agts-mcp.obligationsign.com/mcp"
+      "url": "https://mcp.obligationsign.com/mcp"
     },
     {
       "type": "sse",
-      "url": "https://agts-mcp.obligationsign.com/mcp/sse"
+      "url": "https://mcp.obligationsign.com/mcp/sse"
     }
   ]
 }
