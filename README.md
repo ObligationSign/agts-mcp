@@ -2,20 +2,20 @@
 
 **Sovereign MCP Gateway — Governed Tool Invocation for Autonomous Agents**
 
-Model Context Protocol server that turns tool calls into cryptographically authorized, verifiable actions. 64 governed tools across 6 layers — hybrid Ed25519 + SLH-DSA signed and Merkle-anchored. Designed to support EU AI Act, GDPR, SOC 2, ISO 27001, DORA, NIS2, and FINRA compliance.
+Model Context Protocol server that turns tool calls into cryptographically authorized, verifiable actions. 115+ governed tools across 6 layers — hybrid Ed25519 + SLH-DSA signed and Merkle-anchored. Designed to support EU AI Act, GDPR, SOC 2, ISO 27001, DORA, NIS2, and FINRA compliance.
 
 ---
 
 ## Server URL
 
 ```
-https://agts-mcp.obligationsign.com/mcp
+https://mcp.obligationsign.com/mcp
 ```
 
 | Transport | URL | Status |
 |-----------|-----|--------|
-| **Streamable HTTP (primary)** | `https://agts-mcp.obligationsign.com/mcp` | Active |
-| SSE (deprecated) | `https://agts-mcp.obligationsign.com/mcp/sse` | Deprecated |
+| **Streamable HTTP (primary)** | `https://mcp.obligationsign.com/mcp` | Active |
+| SSE (deprecated) | `https://mcp.obligationsign.com/mcp/sse` | Deprecated |
 
 ## Authentication
 
@@ -33,7 +33,7 @@ Add to your MCP configuration:
 {
   "mcpServers": {
     "agts": {
-      "url": "https://agts-mcp.obligationsign.com/mcp",
+      "url": "https://mcp.obligationsign.com/mcp",
       "headers": {
         "Authorization": "Bearer YOUR_TOKEN"
       }
@@ -45,7 +45,7 @@ Add to your MCP configuration:
 ### Programmatic (JSON-RPC over HTTP)
 
 ```bash
-curl -X POST https://agts-mcp.obligationsign.com/mcp \
+curl -X POST https://mcp.obligationsign.com/mcp \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN" \
   -d '{
@@ -70,7 +70,14 @@ Every tool call passes through a **five-gate firewall** (Statistical, Causal, Re
 
 ---
 
-## Tool Catalog (64 Tools)
+## Cryptography & Validator Quorum
+
+Every governance envelope produced by this server is signed with a **hybrid post-quantum signature**: classical Ed25519 in parallel with SLH-DSA-SHAKE-128f. The signature is verifiable today with Ed25519-only tooling and remains forgery-resistant against future quantum adversaries via SLH-DSA. Sovereign Mail additionally uses **ML-KEM-512** for encrypted key exchange, and peer-trust ceremonies use **ML-DSA-44**.
+
+Admit decisions for governed tool calls require an **independent 3-of-4 validator quorum** with constraint `regulator_count ≥ 1` and `auditor_count ≥ 1`. Validators are deployed as separate Cloudflare Workers (`agts-validator-{a,b,c,d}`) with distinct ECDSA P-256 keypairs; each validator independently re-evaluates the proof bundle and signs an `AGTS_VOTE_V1` certificate. The quorum certificate is then anchored alongside the governance envelope in the Merkle transparency log, so any external party can reconstruct the four signed votes and verify that quorum was honestly met.
+
+
+## Tool Catalog (115+ Tools)
 
 ### Layer 1 — Infrastructure
 
